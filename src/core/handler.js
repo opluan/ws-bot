@@ -1,7 +1,7 @@
 const fs = require('fs')
 const question = require('../../src/constants/question.js')
 const answer = require('../../src/constants/answer.js')
-const { luzIA, blip } = require('../../src/constants/bots.js')
+const { luzIA, blip } = require('./domain/bots')
 
 const sendAudioToBot = async (client, msg, bot) => {
     console.log('Chegou audio, baixando...')
