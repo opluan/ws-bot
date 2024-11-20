@@ -4,16 +4,16 @@ const answer = require('../../src/constants/answer.js')
 const { luzIA, blip } = require('../../src/constants/bots.js')
 
 const sendToBot = async (client, msg, bot) => {
-    console.log('Chegou audio!')
+    console.log('Chegou audio, baixando...')
 
     const media = await msg.downloadMedia()
 
-    console.log('>>>> Aguardando 30s para pedir transcrição... <<<<')
+    console.log('Aguardando 30s para pedir transcrição...')
     await new Promise(r => setTimeout(r, 30000))
 
     await msg.reply('Pedindo pra IA transcrever seu audio, guenta ai...')
 
-    console.log(`Enviando para ${bot.name} (${bot.number})`)
+    console.log(`Enviando audio para ${bot.name}: ${bot.number}...`)
     await client.sendMessage(
         bot.id,
         media,
@@ -27,10 +27,9 @@ const sendToBot = async (client, msg, bot) => {
 }
 
 const transcriptFromBlip = async (client, msg) => {
-    const fileContent = fs.readFileSync('audioSender.json', 'utf8')
-    const audioSender = JSON.parse(fileContent)
+    const audioSender = JSON.parse(fs.readFileSync('audioSender.json', 'utf8'))
 
-    console.log(`Devolvendo msg para ${audioSender.sendTo}`)
+    console.log(`Devolvendo msg para ${audioSender.sendTo}...`)
 
     await client.sendMessage(audioSender.sendTo, msg.body)
 }
@@ -44,7 +43,7 @@ const transcriptFromLuzIA = async (client, msg) => {
     const sendTo = audioTranscript[0].trim() + '@c.us'
     const sendMsg = '*Transcrição:* ' + audioTranscript[1].trim()
 
-    console.log(`Devolvendo msg para ${sendTo}`)
+    console.log(`Devolvendo msg para ${sendTo}...`)
 
     await client.sendMessage(sendTo, sendMsg)
 }
@@ -77,6 +76,8 @@ module.exports = function sender(client) {
         for (const handler of messageHandlers) {
             if (handler.condition(msg)) {
                 await handler.action(client, msg)
+                console.log('Mensagem enviada com sucesso!!!\n')
+
                 break
             }
         }
