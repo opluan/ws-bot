@@ -1,4 +1,4 @@
-const transcriptFromBlip = async (client, msg) => {
+const getTranscriptFromBlip = async (client, msg) => {
     const audioSender = JSON.parse(fs.readFileSync('audioSender.json', 'utf8'))
 
     console.log(`Devolvendo msg para ${audioSender.sendTo}...`)
@@ -6,7 +6,7 @@ const transcriptFromBlip = async (client, msg) => {
     await client.sendMessage(audioSender.sendTo, msg.body)
 }
 
-const transcriptFromLuzIA = async (client, msg) => {
+const getTranscriptFromLuzIA = async (client, msg) => {
     const audioTranscript = msg.body
         .split('Transcrição do áudio de:')[1]
         .split('\n')
@@ -25,13 +25,13 @@ const bots = {
         id: '5511972553036@c.us',
         name: 'LuzIA',
         number: '+55 (11) 97255-3036',
-        handle: (client, msg) => transcriptFromBlip(client, msg)
+        handle: (client, msg) => getTranscriptFromBlip(client, msg)
     },
     blip: {
         id: '553172280540@c.us',
         name: 'Blip',
         number: '+55 (31) 7228-0540',
-        handle: (client, msg) => transcriptFromLuzIA(client, msg)
+        handle: (client, msg) => getTranscriptFromLuzIA(client, msg)
     }
 }
 
