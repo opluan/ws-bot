@@ -1,4 +1,5 @@
 const getTranscriptFromLuzIA = (msg) => {
+    console.log(`LuzIA: Lendo quem enviou o audio...`)
     const audioTranscript = msg.body
         .split('Transcrição do áudio de:')[1]
         .split('\n')
@@ -8,7 +9,6 @@ const getTranscriptFromLuzIA = (msg) => {
     const sendMsg = '*Transcrição:* ' + audioTranscript[1].trim()
 
     console.log(`Devolvendo msg para ${sendTo}...`)
-
     return { sendTo, sendMsg }
 }
 

@@ -12,11 +12,12 @@ const client = new Client({
 });
 
 client.on('qr', qr => {
+    console.log('Whatsapp não conectado, gerando QR Code...');
     qrcode.generate(qr, {small: true});
 });
 
 client.on('ready', () => {
-    console.log('Client is ready!\n');
+    console.log('Whatsapp conectado com sucesso!!!\n');
 });
 
 module.exports = client

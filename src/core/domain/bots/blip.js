@@ -2,10 +2,10 @@ const fs = require('fs')
 
 
 const getTranscriptFromBlip = (msg) => {
+    console.log(`Blip: Lendo quem enviou o audio...`)
     const audioSender = JSON.parse(fs.readFileSync('audioSender.json', 'utf8'))
 
     console.log(`Devolvendo msg para ${audioSender.sendTo}...`)
-
     return { sendTo: audioSender.sendTo, sendMsg: msg.body }
 }
 
