@@ -1,4 +1,4 @@
-const getTranscriptFromLuzIA = async (client, msg) => {
+const getTranscriptFromLuzIA = (msg) => {
     const audioTranscript = msg.body
         .split('Transcrição do áudio de:')[1]
         .split('\n')
@@ -9,12 +9,12 @@ const getTranscriptFromLuzIA = async (client, msg) => {
 
     console.log(`Devolvendo msg para ${sendTo}...`)
 
-    await client.sendMessage(sendTo, sendMsg)
+    return { sendTo, sendMsg }
 }
 
 module.exports = {
     id: '5511972553036@c.us',
     name: 'LuzIA',
     number: '+55 (11) 97255-3036',
-    handle: (client, msg) => getTranscriptFromLuzIA(client, msg)
+    handle: (msg) => getTranscriptFromLuzIA(msg)
 }
