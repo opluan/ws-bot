@@ -1,3 +1,6 @@
+const fs = require('fs')
+
+
 const getTranscriptFromBlip = async (client, msg) => {
     const audioSender = JSON.parse(fs.readFileSync('audioSender.json', 'utf8'))
 

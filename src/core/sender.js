@@ -1,5 +1,6 @@
 const { messageHandlers } = require('./handler.js')
 
+
 module.exports = function sender(client) {
     client.on('message', async msg => {
         for (const handler of messageHandlers) {

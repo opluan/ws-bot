@@ -2,6 +2,7 @@ const fs = require('fs')
 const { question, answer } = require('./domain/constants')
 const { luzIA, blip } = require('./domain/bots')
 
+
 const sendAudioToBot = async (client, msg, bot) => {
     console.log('Chegou audio, baixando...')
 
