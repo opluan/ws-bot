@@ -2,7 +2,7 @@ FROM node:20-bookworm-slim
 
 WORKDIR /usr/src/app
 
-COPY . .
+COPY package*.json ./
 
 RUN apt update && apt install -y \
       gconf-service \
@@ -45,6 +45,8 @@ RUN apt update && apt install -y \
       xdg-utils \
       wget
 
-RUN npm install
+RUN npm ci
+
+COPY . .
 
 CMD [ "npm", "start" ]

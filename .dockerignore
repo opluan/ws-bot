@@ -1,2 +1,7 @@
 node_modules/
-.wwebjs_cache*
+.wwebjs_cache/
+.gitignore
+.git/
+.dockerignore
+docker-compose.*
+Dockerfile
