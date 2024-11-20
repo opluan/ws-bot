@@ -26,28 +26,6 @@ const sendToBot = async (client, msg, bot) => {
     fs.writeFileSync('audioSender.json', JSON.stringify({ sendTo: msg.from }))
 }
 
-const transcriptFromBlip = async (client, msg) => {
-    const audioSender = JSON.parse(fs.readFileSync('audioSender.json', 'utf8'))
-
-    console.log(`Devolvendo msg para ${audioSender.sendTo}...`)
-
-    await client.sendMessage(audioSender.sendTo, msg.body)
-}
-
-const transcriptFromLuzIA = async (client, msg) => {
-    const audioTranscript = msg.body
-        .split('Transcrição do áudio de:')[1]
-        .split('\n')
-        .filter(element => element.trim() !== '')
-    
-    const sendTo = audioTranscript[0].trim() + '@c.us'
-    const sendMsg = '*Transcrição:* ' + audioTranscript[1].trim()
-
-    console.log(`Devolvendo msg para ${sendTo}...`)
-
-    await client.sendMessage(sendTo, sendMsg)
-}
-
 const isAudioMsg = msg => msg.hasMedia && (msg.type === 'audio' || msg.type === 'ptt')
 
 const messageHandlers = [
@@ -57,11 +35,11 @@ const messageHandlers = [
     },
     {
         condition: msg => msg.from === luzIA.id && msg.body.includes('Transcrição do áudio de:'),
-        action: (client, msg) => transcriptFromLuzIA(client, msg),
+        action: (client, msg) => luzIA.handle(client, msg),
     },
     {
         condition: msg => msg.from === blip.id && msg.body.includes('Transcrição:'),
-        action: (client, msg) => transcriptFromBlip(client, msg),
+        action: (client, msg) => blip.handle(client, msg),
     },
     {
         condition: msg => msg.body === question.ping,
