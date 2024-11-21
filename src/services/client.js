@@ -1,6 +1,6 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
-
+const logger = require('./logger.js')
 
 const client = new Client({
     authStrategy: new LocalAuth({
@@ -12,12 +12,12 @@ const client = new Client({
 });
 
 client.on('qr', qr => {
-    console.log('Whatsapp não conectado, gerando QR Code...');
+    logger.info('Whatsapp não conectado, gerando QR Code...');
     qrcode.generate(qr, {small: true});
 });
 
 client.on('ready', () => {
-    console.log('Whatsapp conectado com sucesso!!!\n');
+    logger.info('Whatsapp conectado com sucesso!!!\n');
 });
 
 module.exports = client

@@ -1,18 +1,18 @@
 const fs = require('fs')
-
+const logger = require('../../../services/logger.js')
 
 const getTranscriptFromBlip = (msg) => {
-    console.log(`Blip: Lendo quem enviou o audio...`)
+    logger.info(`Blip: Lendo quem enviou o audio...`)
     let audioSender
     
     try {
         audioSender = JSON.parse(fs.readFileSync('audioSender.json', 'utf8'))
     } catch (err) {
-        console.error(`\n\n${err}\n\nNao consegui ler o audio...\n`)
+        logger.error(`\n\n${err}\n\nNao consegui ler o audio...\n`)
         return null
     }
 
-    console.log(`Devolvendo msg para ${audioSender.sendTo}...`)
+    logger.info(`Devolvendo msg para ${audioSender.sendTo}...`)
     return { sendTo: audioSender.sendTo, sendMsg: msg.body }
 }
 

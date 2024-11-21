@@ -1,5 +1,7 @@
+const logger = require('../../../services/logger.js')
+
 const getTranscriptFromLuzIA = (msg) => {
-    console.log(`LuzIA: Lendo quem enviou o audio...`)
+    logger.info(`LuzIA: Lendo quem enviou o audio...`)
     const audioTranscript = msg.body
         .split('Transcrição do áudio de:')[1]
         .split('\n')
@@ -8,7 +10,7 @@ const getTranscriptFromLuzIA = (msg) => {
     const sendTo = audioTranscript[0].trim() + '@c.us'
     const sendMsg = '*Transcrição:* ' + audioTranscript[1].trim()
 
-    console.log(`Devolvendo msg para ${sendTo}...`)
+    logger.info(`Devolvendo msg para ${sendTo}...`)
     return { sendTo, sendMsg }
 }
 

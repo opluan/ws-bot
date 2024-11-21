@@ -1,5 +1,7 @@
 FROM node:20-bookworm-slim
 
+ENV TZ="America/Sao_Paulo"
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
