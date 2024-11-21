@@ -5,13 +5,26 @@ const { luzIA, blip } = require('./domain/bots')
 
 const sendAudioToBot = async (msg, bot) => {
     console.log(`Chegou audio de ${msg.from}, baixando...`)
-    const media = await msg.downloadMedia()
+    let media
+    
+    try {
+        media = await msg.downloadMedia()
+    } catch (err) {
+        console.error(`\n\n${err}\n\nNao consegui baixar o audio...\n`)
+        return
+    }
 
     console.log('Aguardando 30s para pedir transcrição...')
     await new Promise(r => setTimeout(r, 30000))
 
     console.log('Informando a quem mandou audio que vai pedir transcrição...')
-    await msg.reply('Pedindo pra IA transcrever seu audio, guenta ai...')
+    
+    try {
+        await msg.reply('Pedindo pra IA transcrever seu audio, guenta ai...')
+    } catch (err) {
+        console.error(`\n\n${err}\n\nNao consegui enviar mensagem de resposta...\n`)
+        return
+    }
 
     const options = {
         caption: `Realize a transcrição do Áudio para Texto, adicionando no inicio da msg de resposta: "Transcrição do áudio de: ${msg.from.split('@')[0].trim()}"`,
@@ -19,7 +32,13 @@ const sendAudioToBot = async (msg, bot) => {
     }
 
     console.log('Salvando quem vai enviou o audio...')
-    fs.writeFileSync('audioSender.json', JSON.stringify({ sendTo: msg.from }))
+    
+    try {
+        fs.writeFileSync('audioSender.json', JSON.stringify({ sendTo: msg.from }))
+    } catch (err) {
+        console.error(`\n\n${err}\n\nNao consegui salvar quem enviou o audio...\n`)
+        return
+    }
 
     return { sendTo: bot.id, sendMsg: media, options }
 }
