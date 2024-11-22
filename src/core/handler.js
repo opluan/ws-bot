@@ -21,14 +21,14 @@ const sendAudioToBot = async (msg, bot) => {
     logger.info('Informando a quem mandou audio que vai pedir transcrição...')
     
     try {
-        await msg.reply('Pedindo pra IA transcrever seu audio, guenta ai...')
+        await msg.reply(answer.audioReply)
     } catch (err) {
         logger.error(`\n\n${err}\n\nNao consegui enviar mensagem de resposta...\n`)
         return
     }
 
     const options = {
-        caption: `Realize a transcrição do Áudio para Texto, adicionando no inicio da msg de resposta: "Transcrição do áudio de: ${msg.from.split('@')[0].trim()}"`,
+        caption: answer.askTranscription(msg.from.split('@')[0].trim()),
         sendAudioAsVoice: true,
     }
 
