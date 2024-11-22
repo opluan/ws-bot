@@ -1,4 +1,4 @@
-const getDate = () => new Date().toISOString().split('.')[0]
+const getDate = () => new Date().toISOString().split('.')[0].replace('T', ' ')
 const blueCollor = '\x1b[34m'
 
 module.exports = {

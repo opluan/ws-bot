@@ -15,9 +15,6 @@ const sendAudioToBot = async (msg, bot) => {
         return
     }
 
-    logger.info('Aguardando 30s para pedir transcrição...')
-    await new Promise(r => setTimeout(r, 30000))
-
     logger.info('Informando a quem mandou audio que vai pedir transcrição...')
     
     try {

@@ -5,6 +5,9 @@ module.exports = function sender(client) {
     client.on('message', async msg => {
         for (const handler of messageHandlers) {
             if (handler.condition(msg)) {
+                logger.info('Aguardando 30s para continuar...')
+                await new Promise(r => setTimeout(r, 30000))
+
                 logger.info('Tratando mensagem...')
                 const response = await handler.action(msg)
 
