@@ -1,5 +1,5 @@
 const fs = require('fs')
-const logger = require('../services/logger.js')
+const { logger } = require('../utils')
 const { question, answer } = require('./domain/constants')
 const { luzIA, blip } = require('./domain/bots')
 

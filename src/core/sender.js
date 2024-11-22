@@ -1,12 +1,12 @@
 const { messageHandlers } = require('./handler.js')
-const logger = require('../services/logger.js')
+const { logger } = require('../utils')
+const { sleep } = require('../utils')
 
 module.exports = function sender(client) {
     client.on('message', async msg => {
         for (const handler of messageHandlers) {
             if (handler.condition(msg)) {
-                logger.info('Aguardando 30s para continuar...')
-                await new Promise(r => setTimeout(r, 30000))
+                await sleep(30)
 
                 logger.info('Tratando mensagem...')
                 const response = await handler.action(msg)

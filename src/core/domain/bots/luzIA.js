@@ -1,4 +1,4 @@
-const logger = require('../../../services/logger.js')
+const { logger } = require('../../../utils')
 
 const getTranscriptFromLuzIA = (msg) => {
     logger.info(`LuzIA: Lendo quem enviou o audio...`)

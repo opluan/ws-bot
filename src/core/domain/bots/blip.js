@@ -1,5 +1,5 @@
 const fs = require('fs')
-const logger = require('../../../services/logger.js')
+const { logger } = require('../../../utils')
 
 const getTranscriptFromBlip = (msg) => {
     logger.info(`Blip: Lendo quem enviou o audio...`)
