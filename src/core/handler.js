@@ -42,10 +42,11 @@ const sendAudioToBot = async (msg, bot) => {
 }
 
 const isAudioMsg = msg => msg.hasMedia && (msg.type === 'audio' || msg.type === 'ptt')
+const isGroupMsg = msg => msg.from.includes('@g.us')
 
 const messageHandlers = [
     {
-        condition: (msg) => msg.from.includes('@c.us') && isAudioMsg(msg),
+        condition: (msg) => !isGroupMsg(msg) && isAudioMsg(msg),
         action: async (msg) => sendAudioToBot(msg, blip),
     },
     {
