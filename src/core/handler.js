@@ -11,7 +11,7 @@ const sendAudioToBot = async (msg, bot) => {
     try {
         media = await msg.downloadMedia()
     } catch (err) {
-        logger.error(`\n\n${err}\n\nNao consegui baixar o audio...\n`)
+        logger.error('Nao foi possivel baixar o audio...', err)
         return
     }
 
@@ -20,7 +20,7 @@ const sendAudioToBot = async (msg, bot) => {
     try {
         await msg.reply(answer.audioReply)
     } catch (err) {
-        logger.error(`\n\n${err}\n\nNao consegui enviar mensagem de resposta...\n`)
+        logger.error('Nao consegui enviar mensagem de resposta...', err)
         return
     }
 

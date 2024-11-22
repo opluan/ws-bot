@@ -11,8 +11,9 @@ module.exports = {
     warn: (msg) => {
         console.warn(`[WARN] [${getDate()}] ${msg}`)
     },
-    error: (msg) => {
-        console.error(`[ERROR] [${getDate()}] ${msg}`)
+    error: (msg, err) => {
+        const error = err && err.message ? err.message.replace('Error:', '').replace('\n', '').trim() : err
+        console.error(`[ERROR] [${getDate()}] ${JSON.stringify({msg, error})}`)
     },
     Stopwatch: () => new Stopwatch()
 }

@@ -24,7 +24,7 @@ module.exports = function sender(client) {
                 try {                
                     await client.sendMessage(response.sendTo, response.sendMsg, response?.options)
                 } catch (err) {
-                    logger.error(`\n\n${err}\n\nNao consegui enviar mensagem...\n`)
+                    logger.error('Nao consegui enviar mensagem...', err)
                     break
                 }
                 
