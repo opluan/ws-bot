@@ -2,21 +2,19 @@ const fs = require('fs')
 const logger = require('./logger.js')
 
 
+const queue = []
+
+
 module.exports = {
     add: (item) => {
-        try {
-            fs.writeFileSync('audioSender.json', JSON.stringify(item))
-        } catch (err) {
-            logger.error(`\n\n${err}\n\nNao consegui salvar quem enviou o audio...\n`)
-            return
-        }
+        queue.push(item)
     },
     get: () => {
-        try {
-            return JSON.parse(fs.readFileSync('audioSender.json', 'utf8'))
-        } catch (err) {
-            logger.error(`\n\n${err}\n\nNao consegui ler o audio...\n`)
-            return null
+        if (queue.length === 0) {
+            logger.error('Fila de audio está vazia...')
+            return
         }
+
+        return queue.shift()
     }
 }
