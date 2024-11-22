@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { logger } = require('../utils')
+const { logger, audioSenderStorage } = require('../utils')
 const { question, answer } = require('./domain/constants')
 const { luzIA, blip } = require('./domain/bots')
 
@@ -31,12 +31,7 @@ const sendAudioToBot = async (msg, bot) => {
 
     logger.info('Salvando quem vai enviou o audio...')
     
-    try {
-        fs.writeFileSync('audioSender.json', JSON.stringify({ sendTo: msg.from }))
-    } catch (err) {
-        logger.error(`\n\n${err}\n\nNao consegui salvar quem enviou o audio...\n`)
-        return
-    }
+    audioSenderStorage.add({ sendTo: msg.from })
 
     return { sendTo: bot.id, sendMsg: media, options }
 }
